@@ -7,3 +7,9 @@
 .btn {
   padding-top: 10px;
 }
+
+@media (max-width: 578px) {
+  .message {
+    font-size: x-small;
+  }
+}

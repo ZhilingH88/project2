@@ -7,9 +7,10 @@ const FormTextInput = (props) => {
       label={props.label}
       name={props.name}
       validateStatus={props.validateStatus}
-      hasFeedback={true}
+      hasFeedback={props.hasFeedback}
       help={props.help}
       required={props.required}
+      initialValue={props.defaultValue}
     >
       <Input
         className="form-input"
@@ -18,7 +19,10 @@ const FormTextInput = (props) => {
         value={props.value}
         onChange={props.onChange}
         placeholder={props.placeholder}
+        controls={props.controls}
+        prefix={props.prefix}
         suffix={props.suffix}
+        step={props.step}
       ></Input>
     </Form.Item>
   );

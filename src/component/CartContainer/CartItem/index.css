@@ -1,0 +1,31 @@
+.cart-list {
+  box-sizing: border-box;
+}
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+.nameAndprice {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.nameAndprice h3 {
+  margin-top: 0;
+  padding-top: 0;
+}
+.product-controls {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.scroll {
+  max-height: 300px;
+  height: 300px;
+  overflow: auto;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+}

@@ -1,17 +1,23 @@
 import { Select } from "antd";
 import React, { useState } from "react";
 
-const Selector = ({ options, style }) => {
-  const onChange = (newValue) => {
-    console.log(newValue);
-  };
+const Selector = ({
+  placeholder,
+  name,
+  options,
+  defaultValue,
+  style,
+  onChange,
+}) => {
   return (
     <Select
+      name={name}
       style={style}
-      defaultValue={"newest"}
+      defaultValue={defaultValue}
       onChange={onChange}
       options={options}
       dropdownMatchSelectWidth={false}
+      placeholder={placeholder}
     ></Select>
   );
 };

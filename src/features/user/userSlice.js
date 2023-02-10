@@ -1,14 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { customFetch, privateFetch } from "../../utils/axios";
+import { customFetch } from "../../utils/axios";
 import { toast } from "react-toastify";
 const initialState = {
-  isLoading: false,
-  isLoggedin: false,
-  status: false,
-  access_token: "",
-  expire: "",
   isNavLoading: false,
-  user: {},
+  isLoading:false,
+  status: false,
 };
 export const userRegister = createAsyncThunk(
   "users/register",
@@ -21,32 +17,6 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
-
-export const userLogin = createAsyncThunk(
-  "users/login",
-  async (user, thunkAPI) => {
-    try {
-      const resp = await customFetch.post("/users/login", user);
-      return resp.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.message);
-    }
-  }
-);
-
-export const getUser = createAsyncThunk("/users", async (token, thunkAPI) => {
-  try {
-    const user = await privateFetch.get("/users", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    return user.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.message);
-  }
-});
-
 export const userLogout = createAsyncThunk(
   "/users/logout",
   async (thunkAPI) => {
@@ -63,61 +33,40 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     resetState: (state) => {
-      state.isLoading = false;
+      state.isNavLoading = false;
       state.status = false;
-      state.user = {};
+    },
+    setLoading: (state, { payload }) => {
+      state.isNavLoading = payload.isLoading;
     },
   },
-  extraReducers: {
-    //UserRegister
-    [userRegister.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [userRegister.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.status = true;
-      toast.success("Registration successful. Please sign your account");
-    },
-    [userRegister.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      toast.error(`Registration fail reason : ${payload}`);
-    },
-    // userLogin
-    [userLogin.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [userLogin.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.isLoggedin = true;
-      state.status = "success";
-      state.access_token = payload.accessToken;
-      toast.success("Sign in successful");
-    },
-    [userLogin.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      toast.error(`Login fail:${payload}`);
-    },
-    // getuser
-    [getUser.fulfilled]: (state, { payload }) => {
-      state.isLoggedin = true;
-      console.log('here')
-      state.user = { user: payload.user };
-    },
-    [userLogout.pending]: (state) => {
-      state.isNavLoading = true;
-    },
-    [userLogout.fulfilled]: (state, { payload }) => {
-      state.isLoggedin = false;
-      state.isNavLoading = false;
-      state.access_token = "";
-      state.user = {};
-      toast.success("Log out Successfully");
-    },
-    [userLogout.rejected]: (state, { payload }) => {
-      toast.error("refresh page");
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(userRegister.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(userRegister.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.status = true;
+        toast.success("Registration successful. Please sign in your account");
+      })
+      .addCase(userRegister.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(`registration failed: ${payload}`);
+      })
+      .addCase(userLogout.pending, (state) => {
+        state.isNavLoading = true;
+      })
+      .addCase(userLogout.fulfilled, (state, { payload }) => {
+        state.isNavLoading = false;
+        toast.success("Log out Successfully");
+      })
+      .addCase(userLogout.rejected, (state, { payload }) => {
+        state.isNavLoading = false;
+        console.log(payload);
+      });
   },
 });
 
-export const { resetState } = userSlice.actions;
+export const { resetState, setLoading } = userSlice.actions;
 export default userSlice.reducer;

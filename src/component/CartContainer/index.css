@@ -1,0 +1,35 @@
+.cart-items {
+  padding-bottom: 4vh;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3vh;
+}
+.border-line {
+  border: 1px solid lightgray;
+}
+.code {
+  padding-bottom: 4vh;
+}
+.text-inline {
+  display: flex;
+  justify-content: space-between;
+}
+.total {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2vh;
+  margin-bottom: 3vh;
+}
+.text-inline h4 {
+  margin: 0;
+}
+.invalid-code {
+  padding: 0;
+  margin: 0;
+  color: red;
+}

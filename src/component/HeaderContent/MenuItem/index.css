@@ -1,22 +1,29 @@
 .menu {
-  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.menu-item {
-  padding: 0;
+  align-content: center;
+  font-size: 18px;
   margin: 0;
+}
+.menu li {
+  padding: 0px 0px 5px;
+  display: flex;
+  align-content: center;
 }
 
 .icon {
   padding-right: 5px;
-  font-size: large;
+  color: white;
+  font-size: x-large;
 }
 .btn {
   display: flex;
   align-items: center;
   font-size: medium;
   color: white;
+}
+.cart {
+  padding: 0;
+}
+.cart_container {
+  gap: 1vh;
 }

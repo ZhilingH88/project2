@@ -1,20 +1,12 @@
 import { Dropdown } from "antd";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { userLogout } from "../../features/user/userSlice";
 import { Link } from "react-router-dom";
-const LogoutDropDown = ({ children }) => {
-  const dispatch = useDispatch();
+const LogoutDropDown = ({ children, handleOnClick }) => {
   const items = [
     {
       key: "1",
       label: (
-        <Link
-          to="/"
-          onClick={() => {
-            dispatch(userLogout());
-          }}
-        >
+        <Link to="/" onClick={handleOnClick}>
           Log out
         </Link>
       ),

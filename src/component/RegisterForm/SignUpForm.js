@@ -10,13 +10,13 @@ import {
   isPasswordValid,
 } from "../../utils/RegisterHelper";
 import { Button, Form } from "antd";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./index.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { resetState, userRegister } from "../../features/user/userSlice";
 
-const SignUpForm = () => {
+const SignUpForm = ({ background }) => {
   const initEmail = {
     value: "",
     status: "",
@@ -33,9 +33,10 @@ const SignUpForm = () => {
   const { isLoading, status } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   if (status) {
-    navigate("/");
+    navigate(background.pathname);
     dispatch(resetState());
   }
 
@@ -105,6 +106,7 @@ const SignUpForm = () => {
           label={REGISTER_FORM_TEXT.EMAIL}
           name={REGISTER_FORM_TEXT.EMAIL_NAME}
           validateStatus={email.status}
+          hasFeedback={true}
           help={email.message}
           required={true}
           input_type="text"
@@ -117,6 +119,7 @@ const SignUpForm = () => {
           validateStatus={password.status}
           help={password.message}
           required={true}
+          hasFeedback={true}
           input_type="text"
           value={password.value}
           onChange={handleOnChange}
@@ -141,7 +144,10 @@ const SignUpForm = () => {
         <div>
           <p className="">
             {REGISTER_FORM_TEXT.HELP_MESSAGE}
-            <Link to={REGISTER_FORM_TEXT.HELP_LINK}>
+            <Link
+              to={REGISTER_FORM_TEXT.HELP_LINK}
+              state={{ background: background }}
+            >
               {REGISTER_FORM_TEXT.HELP_LINK_TEXT}
             </Link>
           </p>

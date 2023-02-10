@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { LoginForm, SignUpForm } from "../../component";
+import { LoginForm, SignUpForm, ForgetPassword } from "../../component";
 import { MyModal } from "../../common";
 import { MODAL_TYPE } from "../../content/Modal_Type";
 import { useLocation } from "react-router-dom";
-import ForgetPassword from "../../component/RegisterForm/ForgetPassword";
 
-const Register = () => {
+const Register = ({ background }) => {
   const location = useLocation();
-  const path = location.pathname.slice(1);
-  const [modalType, setModalType] = useState(path);
-  useEffect(() => {
-    setModalType(path);
-  }, [path]);
-
+  const modalType = location.pathname.slice(1);
   let title = "";
   let subtitle;
   switch (modalType) {
@@ -29,14 +23,15 @@ const Register = () => {
   const props = {
     title: title,
     subtitle: subtitle,
+    background: background,
   };
-  return (
-    <MyModal {...props}>
-      {modalType === MODAL_TYPE.LOGIN && <LoginForm />}
-      {modalType === MODAL_TYPE.SIGNUP && <SignUpForm />}
-      {modalType === MODAL_TYPE.UPDATE_PASSWORD && <ForgetPassword />}
-    </MyModal>
-  );
+  let content = <LoginForm background={background} />;
+  if (modalType === MODAL_TYPE.SIGNUP) {
+    content = <SignUpForm background={background} />;
+  } else if (modalType === MODAL_TYPE.UPDATE_PASSWORD) {
+    content = <ForgetPassword />;
+  }
+  return <MyModal {...props}>{content}</MyModal>;
 };
 
 export default Register;

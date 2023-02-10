@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FormTextInput } from "../../common";
 import { LOGIN_FORM_TEXT } from "../../content/RegisterFormContent";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Button, Form } from "antd";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./index.css";
 
 import { isEmpty, isEmailValid } from "../../utils/RegisterHelper";
-import { resetState, userLogin } from "../../features/user/userSlice";
+import { useLoginMutation } from "../../features/auth/authApiSlice";
+import { setCredentials } from "../../features/auth/authSlice";
+import { toast } from "react-toastify";
 
-const LoginForm = () => {
+const LoginForm = ({ background }) => {
   const initEmail = {
     value: "",
     status: "",
@@ -25,14 +27,9 @@ const LoginForm = () => {
   const [email, setEmail] = useState(initEmail);
   const [password, setPassword] = useState(initPassword);
   const [visible, setVisible] = useState(false);
-  const { isLoading, status } = useSelector((store) => store.user);
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  if (status) {
-    navigate("/");
-    dispatch(resetState());
-  }
 
   const handleOnChange = (e) => {
     const name = e.target.name;
@@ -44,7 +41,7 @@ const LoginForm = () => {
       setPassword({ ...initPassword, value: value });
     }
   };
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const userEmail = email.value;
     const userPassword = password.value;
@@ -80,10 +77,24 @@ const LoginForm = () => {
     }
     if (finalResult) {
       const user = { email: userEmail, password: userPassword };
-      dispatch(userLogin(user));
+      try {
+        const userData = await login(user).unwrap();
+        dispatch(setCredentials({ ...userData }));
+        toast.success("Login successfully");
+        setEmail(initEmail);
+        setPassword(initPassword);
+        navigate(background.pathname);
+      } catch (error) {
+        if (!error.status) {
+          toast.error("No Server Response");
+        } else if (error.status === 400) {
+          toast.error(`${error.data.message}`);
+        } else {
+          toast.error("Login Failed");
+        }
+      }
     }
   };
-
   return (
     <>
       <Form layout="vertical" disabled={isLoading}>
@@ -127,13 +138,19 @@ const LoginForm = () => {
         <div>
           <p className="">
             {LOGIN_FORM_TEXT.HELP_MESSAGE}
-            <Link to={LOGIN_FORM_TEXT.HELP_LINK}>
+            <Link
+              to={LOGIN_FORM_TEXT.HELP_LINK}
+              state={{ background: background }}
+            >
               {LOGIN_FORM_TEXT.HELP_LINK_TEXT}
             </Link>
           </p>
         </div>
-        <div className="div">
-          <Link to={LOGIN_FORM_TEXT.FORGET_PASSWORD_LINK}>
+        <div className="help-link">
+          <Link
+            to={LOGIN_FORM_TEXT.FORGET_PASSWORD_LINK}
+            state={{ background: background }}
+          >
             {LOGIN_FORM_TEXT.FORGET_PASSWORD}
           </Link>
         </div>

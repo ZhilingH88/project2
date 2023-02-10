@@ -37,3 +37,4 @@ export const FORGET_PASSWORD_TEXT = {
   EMAIL_ERROR: "Invalid Email",
   EMPTY_ERROR: "Can not be empty",
 };
+

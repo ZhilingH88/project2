@@ -1,0 +1,12 @@
+.form-container {
+  background: whitesmoke;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  background-color: white;
+  box-sizing: border-box;
+  padding: 2vh;
+}
