@@ -3,6 +3,13 @@ import { InputNumber, Button, Space, Input, Tooltip } from "antd";
 import { useReduceFromCartMutation } from "../../features/cart/cartApiSlice";
 import "./index.css";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser } from "../../features/auth/authSlice";
+import {
+  calculateTotals,
+  reduceItemFromCart,
+  removeItemFromCart,
+} from "../../features/cart/cartSlice";
 const Counter = ({
   count,
   setCount,
@@ -13,6 +20,8 @@ const Counter = ({
   max,
 }) => {
   const [reduceFromCart, result] = useReduceFromCartMutation();
+  const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
 
   const handleInclement = async (e) => {
     e.preventDefault();
@@ -21,12 +30,18 @@ const Counter = ({
   const handleDecrease = async (e) => {
     e.preventDefault();
     let value = count - 1;
-    if (value < 0) {
+    if (value <= 0) {
+      dispatch(removeItemFromCart(product_id));
       setCount(0);
     } else {
       setCount((prev) => {
         return parseInt(prev) - 1;
       });
+    }
+    if (!user) {
+      dispatch(reduceItemFromCart(product_id));
+      dispatch(calculateTotals());
+      return;
     }
     try {
       const resp = await reduceFromCart({ product_id: product_id }).unwrap();

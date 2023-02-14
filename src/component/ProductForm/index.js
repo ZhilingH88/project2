@@ -14,6 +14,8 @@ import {
 } from "../../features/products/productApiSlice";
 import { toast } from "react-toastify";
 import { customFetch } from "../../utils/axios";
+import { useDispatch } from "react-redux";
+import { calculateTotals } from "../../features/cart/cartSlice";
 const { Title } = Typography;
 const ProductForm = () => {
   let initState = {
@@ -55,6 +57,7 @@ const ProductForm = () => {
   const [editProduct, result] = useEditProductMutation();
   const [isEditLoading, setIsEditLoading] = useState(false);
   const [isEditMethod, setIsEditMethod] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
   const getProductById = async (id) => {
@@ -180,6 +183,7 @@ const ProductForm = () => {
       const resp = await deleteProduct({ product_id: productId }).unwrap();
       toast.success(`${resp.message}`);
       setFormData(initState);
+      dispatch(calculateTotals());
       navigate("/");
     } catch (error) {
       if (!error.status) {
@@ -213,7 +217,6 @@ const ProductForm = () => {
       if (action === "add") {
         try {
           const resp = await addProduct(product).unwrap();
-          console.log(resp);
           toast.success(`${resp.message}`);
           setFormData(initState);
           navigate("/");
@@ -234,6 +237,7 @@ const ProductForm = () => {
           }).unwrap();
           toast.success(`${resp.message}`);
           setFormData(initState);
+          dispatch(calculateTotals());
           navigate("/");
         } catch (error) {
           if (!error.status) {
@@ -389,7 +393,7 @@ const ProductForm = () => {
                     ></FormTextInput>
                   </Col>
                 </Row>
-                <Row justify={"center"}>
+                <Row justify={"center"} className="image-container">
                   <Form.Item>
                     <Image
                       alt={"image preview"}

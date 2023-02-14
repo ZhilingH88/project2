@@ -10,6 +10,7 @@ import {
 } from "../../../features/user/userApiSlice";
 import { openModal } from "../../../features/modal/modalSlice";
 import LogoutDropDown from "../../LogoutDropdown";
+import { useGetCartQuery } from "../../../features/cart/cartApiSlice";
 import {
   logOut,
   selectCurrentToken,
@@ -17,8 +18,16 @@ import {
   setCredentials,
 } from "../../../features/auth/authSlice";
 import { userLogout } from "../../../features/user/userSlice";
-import { clearCart } from "../../../features/cart/cartSlice";
+import {
+  clearCart,
+  setCartItem,
+  calculateTotals,
+} from "../../../features/cart/cartSlice";
 import { toast } from "react-toastify";
+import {
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from "../../../utils/localStorage";
 
 const { Item } = Menu;
 
@@ -26,41 +35,40 @@ const MenuItem = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const { data, isLoading, isSuccess, isError, error } = useGetUserQuery();
-  const [userLogout, result] = useUserLogoutMutation();
   const user = useSelector(selectCurrentUser);
   const { amount, subtotal } = useSelector((store) => store.cart);
-  const [userName, setUserName] = useState(user?.split("@")[0]);
-  const [success, setSuccess] = useState(false);
+  const [userLogout, result] = useUserLogoutMutation();
+  const [userName, setUserName] = useState(null);
+  const token = getUserFromLocalStorage("token");
+  const userResult = useGetUserQuery(undefined, {
+    skip: token == null,
+  });
   useEffect(() => {
-    if (user) {
-      setSuccess(true);
-      setUserName(user.split("@")[0]);
+    setUserName(user?.split("@")[0]);
+    if (userResult?.data?.user) {
+      dispatch(
+        setCredentials({
+          userEmail: userResult.data.user,
+          isAdmin: userResult.data.isAdmin,
+        })
+      );
+      setUserName(userResult.data.user.split("@")[0]);
     }
-  }, [user]);
-  useEffect(() => {
-    if (isSuccess) {
-      setSuccess(true);
-    }
-    if (isError) {
-      setSuccess(false);
-    }
-  }, [isSuccess, isError]);
+  }, [userResult, user]);
 
   const handleOnClick = async () => {
     try {
       const resp = await userLogout().unwrap();
+      removeUserFromLocalStorage("token");
       dispatch(clearCart());
       dispatch(logOut());
-      setSuccess(false);
-      setUserName("");
+      setUserName(null);
       toast.success(`${resp.message}`);
-      navigate(0);
     } catch (error) {
       dispatch(clearCart());
       dispatch(logOut());
-      navigate(0);
+      removeUserFromLocalStorage("token");
+      setUserName(null);
     }
   };
 
@@ -68,11 +76,15 @@ const MenuItem = () => {
     <div className="navbar">
       <ul className="menu">
         <li>
-          {success ? (
+          {token ? (
             <LogoutDropDown handleOnClick={handleOnClick}>
-              <Button type="link" className="btn" loading={result.isLoading}>
+              <Button
+                type="link"
+                className="btn"
+                loading={userResult.isLoading || result.isLoading}
+              >
                 <FaUser className="icon" />
-                <p>{userName}</p>
+                <p>{userResult.isLoading ? "Loading..." : userName}</p>
               </Button>
             </LogoutDropDown>
           ) : (
@@ -86,10 +98,10 @@ const MenuItem = () => {
               <Button
                 type="link"
                 className="btn"
-                loading={isLoading || result.isLoading}
+                loading={userResult.isLoading}
               >
                 <FaUser className="icon" />
-                <p>{isLoading ? "Loading..." : "Sign in"}</p>
+                <p>{token ? "Loading..." : "Sign in"}</p>
               </Button>
             </NavLink>
           )}

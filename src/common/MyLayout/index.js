@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MyFooter from "../MyFooter";
 import MyHeader from "../MyHeader";
 import "./index.css";
@@ -7,19 +7,31 @@ import { Outlet } from "react-router-dom";
 import { calculateTotals, setCartItem } from "../../features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetCartQuery } from "../../features/cart/cartApiSlice";
-import { selectCurrentToken } from "../../features/auth/authSlice";
+import {
+  selectCurrentToken,
+  setCredentials,
+  setUserLogin,
+} from "../../features/auth/authSlice";
+import { useGetUserQuery } from "../../features/user/userApiSlice";
+import { apiSlice } from "../../app/api/apiSlice";
+import { getUserFromLocalStorage } from "../../utils/localStorage";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 const { Content } = Layout;
 const MyLayout = () => {
-  const { data, isLoading, isFetching, error } = useGetCartQuery();
   const dispatch = useDispatch();
-  const token = useSelector(selectCurrentToken);
+  const token = getUserFromLocalStorage("token");
+  const { data, isLoading, error } = useGetCartQuery(undefined, {
+    skip: token == null,
+  });
+  const cartItems = data?.cartItems;
   useEffect(() => {
-    if (data) {
-      dispatch(setCartItem(data.cartItems));
+    if (cartItems && token) {
+      dispatch(setCartItem(cartItems));
       dispatch(calculateTotals());
     }
-  }, [data, token]);
+  }, [cartItems, token]);
+
   return (
     <Layout>
       <MyHeader />

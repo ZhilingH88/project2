@@ -3,12 +3,19 @@ import { useAddToCartMutation } from "../../../features/cart/cartApiSlice";
 import { Button } from "antd";
 import { Counter } from "../../../common";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { findNumberProductInCart } from "../../../utils/productSort";
+import { selectCurrentUser } from "../../../features/auth/authSlice";
+import {
+  addItemToCart,
+  calculateTotals,
+} from "../../../features/cart/cartSlice";
 const CounterButton = (props) => {
   const [count, setCount] = useState(null);
   const { cartItems } = useSelector((store) => store.cart);
   const [addToCart, result] = useAddToCartMutation();
+  const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     const quantity = findNumberProductInCart(cartItems, props.product_id);
     setCount(quantity);
@@ -20,6 +27,17 @@ const CounterButton = (props) => {
       }
       return prev + 1;
     });
+    if (!user) {
+      dispatch(
+        addItemToCart({
+          ...props.product,
+          product_id: props.product_id,
+          quantity: 1,
+        })
+      );
+      dispatch(calculateTotals());
+      return;
+    }
     try {
       const resp = await addToCart({ product_id: props.product_id }).unwrap();
       toast.success(`${resp.message}`);
@@ -40,6 +58,7 @@ const CounterButton = (props) => {
           type="primary"
           onClick={addProductToCart}
           block
+          style={{ textAlign: "center" }}
           loading={result.isLoading}
           disabled={props.max === 0}
         >

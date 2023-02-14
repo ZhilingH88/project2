@@ -12,7 +12,7 @@ const HeaderContent = () => {
       <Col
         xs={{ order: 1, span: 4 }}
         sm={{ order: 1, span: 4 }}
-        md={{ order: 1, span: 8 }}
+        md={{ order: 1, span: 4 }}
         lg={{ order: 1, span: 8 }}
         xl={{ order: 1, span: 8 }}
       >
@@ -39,7 +39,7 @@ const HeaderContent = () => {
       <Col
         xs={{ order: 2, span: 20 }}
         sm={{ order: 2, span: 20 }}
-        md={{ order: 3, span: 8 }}
+        md={{ order: 3, span: 12 }}
         lg={{ order: 3, span: 8 }}
         xl={{ order: 3, span: 8 }}
       >

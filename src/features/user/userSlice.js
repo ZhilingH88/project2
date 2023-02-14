@@ -10,7 +10,7 @@ export const userRegister = createAsyncThunk(
   "users/register",
   async (user, thunkAPI) => {
     try {
-      const resp = await customFetch.post("/users/register", user);
+      const resp = await customFetch.post("/use/register", user);
       return resp.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
@@ -21,7 +21,7 @@ export const userLogout = createAsyncThunk(
   "/users/logout",
   async (thunkAPI) => {
     try {
-      const resp = await customFetch.delete("/users/logout");
+      const resp = await customFetch.delete("/user/logout");
       return resp;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);

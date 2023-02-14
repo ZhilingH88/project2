@@ -10,8 +10,14 @@ import "./index.css";
 
 import { isEmpty, isEmailValid } from "../../utils/RegisterHelper";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
-import { setCredentials } from "../../features/auth/authSlice";
+import { setCredentials, setUserLogin } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
+import { apiSlice } from "../../app/api/apiSlice";
+import {
+  addUserToLocalStorage,
+  getUserFromLocalStorage,
+} from "../../utils/localStorage";
+import { cartApiSlice } from "../../features/cart/cartApiSlice";
 
 const LoginForm = ({ background }) => {
   const initEmail = {
@@ -27,10 +33,9 @@ const LoginForm = ({ background }) => {
   const [email, setEmail] = useState(initEmail);
   const [password, setPassword] = useState(initPassword);
   const [visible, setVisible] = useState(false);
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleOnChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -79,12 +84,19 @@ const LoginForm = ({ background }) => {
       const user = { email: userEmail, password: userPassword };
       try {
         const userData = await login(user).unwrap();
-        dispatch(setCredentials({ ...userData }));
+        addUserToLocalStorage("token", userData.accessToken);
+        dispatch(
+          setCredentials({
+            userEmail: userData.userEmail,
+            isAdmin: userData.isAdmin,
+          })
+        );
         toast.success("Login successfully");
         setEmail(initEmail);
         setPassword(initPassword);
         navigate(background.pathname);
       } catch (error) {
+        console.log(error);
         if (!error.status) {
           toast.error("No Server Response");
         } else if (error.status === 400) {

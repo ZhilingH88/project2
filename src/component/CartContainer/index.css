@@ -1,13 +1,6 @@
 .cart-items {
   padding-bottom: 4vh;
 }
-
-.item-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 3vh;
-}
 .border-line {
   border: 1px solid lightgray;
 }

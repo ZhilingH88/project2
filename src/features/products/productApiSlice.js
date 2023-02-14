@@ -15,6 +15,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: { ...productInfo },
       }),
+      invalidatesTags: ["Cart"],
     }),
     deleteProduct: builder.mutation({
       query: (product_id) => ({

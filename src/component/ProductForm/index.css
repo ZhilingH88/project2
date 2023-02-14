@@ -10,3 +10,6 @@
   box-sizing: border-box;
   padding: 2vh;
 }
+.image-container {
+  width: 50%;
+}

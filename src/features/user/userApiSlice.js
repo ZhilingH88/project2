@@ -4,12 +4,12 @@ import { userLogout } from "./userSlice";
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query({
-      query: () => "/users",
+      query: () => "/user",
       keepUnusedDataFor: 5,
     }),
     userLogout: builder.mutation({
       query: () => ({
-        url: "users/logout",
+        url: "user/logout",
         method: "DELETE",
       }),
     }),

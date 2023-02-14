@@ -68,6 +68,7 @@ const ProductDetail = () => {
                 size={"small"}
                 product_id={productId}
                 max={product.quantity}
+                product={product}
               />
               {isAdmin && (
                 <Link to={`/edit-product/${product.product_id}`}>

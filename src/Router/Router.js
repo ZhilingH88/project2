@@ -106,7 +106,7 @@ const Router = () => {
           />
         </Routes>
       )}
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" autoClose={500} />
     </>
   );
 };

@@ -10,6 +10,11 @@ import { findNumberProductInCart } from "../../utils/productSort";
 import CounterButton from "./CounterButton";
 const MyCard = (props) => {
   const { isAdmin } = useSelector((store) => store.auth);
+  const product = {
+    image: props.image,
+    name: props.title,
+    price: props.price,
+  };
   return (
     <Card key={props.key} className="card" size="small">
       <div className="card-container">
@@ -31,6 +36,7 @@ const MyCard = (props) => {
             size={"small"}
             product_id={props.id}
             max={props.quantity}
+            product={product}
           />
           {isAdmin && (
             <Link to={`/edit-product/${props.id}`}>
