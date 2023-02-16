@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { customFetch } from "../../utils/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUserIsAdmin } from "../../features/auth/authSlice";
-import CounterButton from "../Card/CounterButton";
+import CounterButton from "../CounterButton";
 const { Title } = Typography;
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -63,19 +63,22 @@ const ProductDetail = () => {
               2
             )}`}</Title>
             <p className="description">{product.description}</p>
-            <div className="product-buttons">
-              <CounterButton
-                size={"small"}
-                product_id={productId}
-                max={product.quantity}
-                product={product}
-              />
-              {isAdmin && (
-                <Link to={`/edit-product/${product.product_id}`}>
-                  <Button block>Edit</Button>
-                </Link>
-              )}
-            </div>
+            <ul className="product-buttons">
+              <li className="list-button">
+                <CounterButton
+                  product_id={productId}
+                  max={product.quantity}
+                  product={product}
+                />
+              </li>
+              <li className="list-button">
+                {isAdmin && (
+                  <Link to={`/edit-product/${product.product_id}`}>
+                    <Button block>Edit</Button>
+                  </Link>
+                )}
+              </li>
+            </ul>
           </div>
         </article>
       ) : (

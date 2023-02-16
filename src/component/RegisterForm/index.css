@@ -8,6 +8,12 @@
   padding-top: 10px;
 }
 
+.form-btn {
+  background-color: purple;
+  border-radius: 0;
+  color: white;
+}
+
 @media (max-width: 578px) {
   .message {
     font-size: x-small;

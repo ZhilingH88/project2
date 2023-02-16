@@ -19,6 +19,18 @@
   justify-content: space-between;
   gap: 1vh;
 }
+.header-left button {
+  background-color: purple;
+  border-radius: 0;
+  color: white;
+}
 .show-products {
   width: 100%;
+}
+.show-product {
+  margin-bottom: 10px;
+}
+.selector {
+  border: 1px solid lightgray;
+  background-color: white;
 }

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useAddToCartMutation } from "../../../features/cart/cartApiSlice";
+import { useAddToCartMutation } from "../../features/cart/cartApiSlice";
 import { Button } from "antd";
-import { Counter } from "../../../common";
+import { Counter } from "../../common";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { findNumberProductInCart } from "../../../utils/productSort";
-import { selectCurrentUser } from "../../../features/auth/authSlice";
-import {
-  addItemToCart,
-  calculateTotals,
-} from "../../../features/cart/cartSlice";
+import { findNumberProductInCart } from "../../utils/productSort";
+import { selectCurrentUser } from "../../features/auth/authSlice";
+import { addItemToCart, calculateTotals } from "../../features/cart/cartSlice";
+
+import "./index.css";
 const CounterButton = (props) => {
   const [count, setCount] = useState(null);
   const { cartItems } = useSelector((store) => store.cart);
@@ -52,17 +51,15 @@ const CounterButton = (props) => {
     }
   };
   return (
-    <div style={{ width: "100px" }}>
+    <div className="counterBtn-container">
       {count === 0 ? (
         <Button
-          type="primary"
           onClick={addProductToCart}
+          className="counter-button"
           block
-          style={{ textAlign: "center" }}
-          loading={result.isLoading}
-          disabled={props.max === 0}
+          disabled={props.max === 0 || result.isLoading}
         >
-          {props.max === 0 ? "Out of Stock" : "Add"}
+          <p>{props.max === 0 ? "Out of Stock" : "Add"}</p>
         </Button>
       ) : (
         <Counter

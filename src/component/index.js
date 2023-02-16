@@ -9,7 +9,7 @@ import ProductForm from "./ProductForm";
 import ProductDetail from "./ProdoctDetail";
 import CartContainer from "./CartContainer";
 import MyCard from "./Card";
-import CounterButton from "./Card/CounterButton";
+import CounterButton from "./CounterButton";
 export {
   FooterContent,
   HeaderContent,

@@ -137,7 +137,7 @@ const LoginForm = ({ background }) => {
         ></FormTextInput>
         <Form.Item>
           <Button
-            type="primary"
+            className="form-btn"
             block
             onClick={handleOnSubmit}
             loading={isLoading}

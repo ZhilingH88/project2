@@ -1,21 +1,13 @@
 import { Layout } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MyFooter from "../MyFooter";
 import MyHeader from "../MyHeader";
 import "./index.css";
 import { Outlet } from "react-router-dom";
 import { calculateTotals, setCartItem } from "../../features/cart/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useGetCartQuery } from "../../features/cart/cartApiSlice";
-import {
-  selectCurrentToken,
-  setCredentials,
-  setUserLogin,
-} from "../../features/auth/authSlice";
-import { useGetUserQuery } from "../../features/user/userApiSlice";
-import { apiSlice } from "../../app/api/apiSlice";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 const { Content } = Layout;
 const MyLayout = () => {
@@ -35,10 +27,12 @@ const MyLayout = () => {
   return (
     <Layout>
       <MyHeader />
-      <Content className="content" style={{ height: "100%" }}>
-        <Outlet />
-      </Content>
-      <MyFooter />
+      <div className="flex-wrapper">
+        <Content className="content">
+          <Outlet />
+        </Content>
+        <MyFooter />
+      </div>
     </Layout>
   );
 };

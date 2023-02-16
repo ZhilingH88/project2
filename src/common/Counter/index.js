@@ -58,36 +58,41 @@ const Counter = ({
     }
   };
   return (
-    <Space.Compact direction="horizontal" size={size} align="center" block>
+    <div className="counter-container">
       <Tooltip placement="top" title={`${max} in Stock`}>
         <Button
-          type="primary"
+          className="counter-btn"
           size={size}
           onClick={handleInclement}
-          loading={result.isLoading || addIsLoading}
+          disabled={result.isLoading || addIsLoading}
         >
           +
         </Button>
       </Tooltip>
-      <InputNumber
-        controls={false}
-        defaultValue={count}
-        value={count}
-        style={{ width: "100px" }}
-        max={max}
-        min={0}
-        disabled={true}
-      ></InputNumber>
+      <input value={count} disabled={true} className="counter-input" />
       <Button
-        type="primary"
+        className="counter-btn"
         size={size}
         onClick={handleDecrease}
-        loading={result.isLoading || addIsLoading}
+        disabled={result.isLoading || addIsLoading}
       >
         -
       </Button>
-    </Space.Compact>
+    </div>
   );
 };
 
 export default Counter;
+
+{
+  /* <InputNumber
+controls={false}
+defaultValue={count}
+value={count}
+size={size}
+style={{ width: "100px" }}
+max={max}
+min={0}
+disabled={true}
+></InputNumber> */
+}

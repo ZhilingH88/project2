@@ -8,11 +8,16 @@ import MenuItem from "./MenuItem";
 const { Search } = Input;
 const HeaderContent = () => {
   return (
-    <Row justify="space-between" align="middle" wrap>
+    <Row
+      justify="space-between"
+      align="middle"
+      className="header-container"
+      wrap
+    >
       <Col
         xs={{ order: 1, span: 4 }}
         sm={{ order: 1, span: 4 }}
-        md={{ order: 1, span: 4 }}
+        md={{ order: 1, span: 6 }}
         lg={{ order: 1, span: 8 }}
         xl={{ order: 1, span: 8 }}
       >
@@ -30,16 +35,12 @@ const HeaderContent = () => {
         lg={{ order: 2, span: 8 }}
         xl={{ order: 2, span: 8 }}
       >
-        <Search
-          placeholder="input search text"
-          enterButton
-          style={{ display: "block" }}
-        />
+        <Search placeholder="input search text" style={{ display: "block" }} />
       </Col>
       <Col
         xs={{ order: 2, span: 20 }}
         sm={{ order: 2, span: 20 }}
-        md={{ order: 3, span: 12 }}
+        md={{ order: 3, span: 10 }}
         lg={{ order: 3, span: 8 }}
         xl={{ order: 3, span: 8 }}
       >

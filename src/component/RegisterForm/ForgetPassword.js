@@ -71,7 +71,7 @@ const ForgetPassword = () => {
             onChange={handleOnChange}
           ></FormTextInput>
           <Form.Item>
-            <Button type="primary" block onClick={handleOnSubmit}>
+            <Button className="form-btn" block onClick={handleOnSubmit}>
               {FORGET_PASSWORD_TEXT.BUTTON_TEXT}
             </Button>
           </Form.Item>

@@ -1,0 +1,12 @@
+.counter-button {
+  background-color: purple;
+  border-radius: 0;
+  color: white;
+  padding: 0;
+}
+.counter-button p {
+  margin: 0;
+}
+.counterBtn-container {
+  margin: 0 15px 0 15px;
+}

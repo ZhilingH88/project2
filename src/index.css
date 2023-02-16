@@ -14,3 +14,8 @@ code {
 * {
   box-sizing: border-box;
 }
+button {
+  background-color: purple;
+  border-radius: 0;
+  color: white;
+}

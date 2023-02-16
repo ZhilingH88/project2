@@ -1,28 +1,11 @@
-import {
-  Image,
-  Modal,
-  Col,
-  Row,
-  Button,
-  Input,
-  List,
-  Spin,
-  Drawer,
-} from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, Input, List, Drawer } from "antd";
+import React, { useState } from "react";
 import { GrClose } from "react-icons/gr";
-import { Link, Route, useNavigate } from "react-router-dom";
-
-import { useGetCartQuery } from "../../features/cart/cartApiSlice";
+import { Link } from "react-router-dom";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  calculateTotals,
-  setCartItem,
-  setDiscount,
-} from "../../features/cart/cartSlice";
+import { calculateTotals, setDiscount } from "../../features/cart/cartSlice";
 import CartItem from "./CartItem";
-import { closeModal } from "../../features/modal/modalSlice";
 import { getDiscountValue } from "../../content/DummyData";
 
 const CartContainer = ({ background }) => {
@@ -62,12 +45,13 @@ const CartContainer = ({ background }) => {
           <label>Apply Discount Code</label>
           <Input.Group compact style={{ display: "flex" }}>
             <Input
+              className="cart-input"
               type="text"
               placeholder="20OFF"
               onChange={handleDiscount}
             ></Input>
             <Button
-              type="primary"
+              className="cart-btn"
               onClick={(e) => {
                 e.preventDefault();
                 const data = getDiscountValue(code);
@@ -103,7 +87,7 @@ const CartContainer = ({ background }) => {
             <h4>{`$${total.toFixed(2)}`}</h4>
           </div>
         </div>
-        <Button type="primary" block>
+        <Button className="cart-btn" block>
           Continue Checkout
         </Button>
       </div>

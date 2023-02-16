@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Avatar, List } from "antd";
-import { Counter } from "../../../common";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useAddToCartMutation,
@@ -8,9 +7,12 @@ import {
 } from "../../../features/cart/cartApiSlice";
 import { toast } from "react-toastify";
 import "./index.css";
-import CounterButton from "../../Card/CounterButton";
+import CounterButton from "../../CounterButton";
 import { selectCurrentUser } from "../../../features/auth/authSlice";
-import { calculateTotals, removeItemFromCart } from "../../../features/cart/cartSlice";
+import {
+  calculateTotals,
+  removeItemFromCart,
+} from "../../../features/cart/cartSlice";
 const CartItem = ({ item }) => {
   const [removeFromCart, { isLoading }] = useRemoveFromCartMutation();
   const user = useSelector(selectCurrentUser);

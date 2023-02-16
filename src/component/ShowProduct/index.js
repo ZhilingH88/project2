@@ -42,28 +42,29 @@ const ShowProducts = () => {
   return (
     <section className="product">
       <div className="product-header">
-        <h1>Product</h1>
+        <h1>Products</h1>
         <div className="header-left">
-          <Selector
-            options={PRODUCT_FILTER}
-            defaultValue={"newest"}
-            onChange={onFilterChange}
-          ></Selector>
+          <div className="selector">
+            <Selector
+              options={PRODUCT_FILTER}
+              defaultValue={"newest"}
+              onChange={onFilterChange}
+            ></Selector>
+          </div>
           {isAdmin && (
             <Link to="/create-product">
-              <Button type="primary">Add Product</Button>
+              <Button>Add Product</Button>
             </Link>
           )}
         </div>
       </div>
       <div className="show-products">
-        <h2>Show products</h2>
         <Row
           gutter={[
-            { xs: 8, sm: 16, md: 24, lg: 32 },
-            { xs: 8, sm: 16, md: 24, lg: 32 },
+            { xs: 8, sm: 12, md: 16, lg: 24 },
+            { xs: 8, sm: 12, md: 16, lg: 24 },
           ]}
-          className="show-products"
+          className="show-product"
         >
           {isLoading ? (
             <Spin size="large" />
@@ -74,11 +75,12 @@ const ShowProducts = () => {
               return (
                 <Col
                   className="gutter-row"
-                  span={6}
                   xs={24}
-                  sm={24}
-                  md={12}
+                  sm={12}
+                  md={8}
+                  lg={8}
                   xl={6}
+                  xxl={4}
                   key={item.product_id}
                 >
                   <MyCard

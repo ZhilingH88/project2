@@ -18,6 +18,7 @@ const Selector = ({
       options={options}
       dropdownMatchSelectWidth={false}
       placeholder={placeholder}
+      bordered={false}
     ></Select>
   );
 };

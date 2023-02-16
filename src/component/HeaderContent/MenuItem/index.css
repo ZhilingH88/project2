@@ -1,6 +1,8 @@
 .menu {
   display: flex;
   align-content: center;
+  justify-content: end;
+  box-sizing: border-box;
   font-size: 18px;
   margin: 0;
 }
@@ -8,6 +10,7 @@
   padding: 0px 0px 5px;
   display: flex;
   align-content: center;
+  width: 50%;
 }
 
 .icon {
@@ -20,6 +23,7 @@
   align-items: center;
   font-size: medium;
   color: white;
+  padding: 0;
 }
 .cart {
   padding: 0;

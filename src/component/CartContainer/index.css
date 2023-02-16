@@ -26,3 +26,8 @@
   margin: 0;
   color: red;
 }
+.cart-btn {
+  background-color: purple;
+  border-radius: 0;
+  color: white;
+}

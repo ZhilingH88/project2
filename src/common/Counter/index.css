@@ -1,3 +1,23 @@
-input[type="number"] {
+.counter-container {
+  display: flex;
+  /* border: 1px solid purple; */
+  background-color: purple;
+}
+.counter-btn {
+  background-color: purple;
+  color: white;
+  border: 0;
+  border-radius: 0;
+}
+.counter-input {
   text-align: center;
+  width: 100%;
+  border: 0;
+  color: white;
+  background-color: purple;
+}
+.counter-container button:disabled {
+  color: white;
+  border: 0;
+  border-radius: 0;
 }
