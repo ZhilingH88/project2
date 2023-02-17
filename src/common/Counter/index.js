@@ -32,6 +32,7 @@ const Counter = ({
     let value = count - 1;
     if (value <= 0) {
       setCount(0);
+      dispatch(removeItemFromCart(product_id));
     } else {
       setCount((prev) => {
         return parseInt(prev) - 1;
@@ -39,7 +40,7 @@ const Counter = ({
     }
     if (!user) {
       if (value <= 0) {
-        dispatch(removeItemFromCart(product_id));
+        // dispatch(removeItemFromCart(product_id));
       } else {
         dispatch(reduceItemFromCart(product_id));
       }

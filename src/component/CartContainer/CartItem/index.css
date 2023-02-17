@@ -13,6 +13,7 @@
   display: inline-flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 5px;
 }
 .item-info h4 h3 {
   margin-top: 0;

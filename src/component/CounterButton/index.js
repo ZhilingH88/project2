@@ -20,18 +20,24 @@ const CounterButton = (props) => {
     setCount(quantity);
   }, [cartItems]);
   const addProductToCart = async () => {
-    setCount((prev) => {
-      if (prev + 1 >= props.max) {
-        return props.max;
+    let addNum = 1;
+    let value = count + 1;
+    if (value > parseInt(props.max)) {
+      addNum = 0;
+      if (!user) {
+        toast.error("Inventory shortage");
       }
-      return prev + 1;
-    });
+      setCount(props.max);
+    } else {
+      setCount(value);
+    }
     if (!user) {
       dispatch(
         addItemToCart({
           ...props.product,
           product_id: props.product_id,
-          quantity: 1,
+          stock: props.max,
+          quantity: addNum,
         })
       );
       dispatch(calculateTotals());
