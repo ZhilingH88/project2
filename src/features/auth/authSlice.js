@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { removeUserFromLocalStorage } from "../../utils/localStorage";
 const initialState = {
   user: null,
   isAdmin: null,
@@ -18,6 +18,7 @@ const authSlice = createSlice({
     },
     logOut: (state) => {
       state.user = null;
+      removeUserFromLocalStorage("token");
       state.isAdmin = null;
     },
   },

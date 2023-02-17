@@ -42,7 +42,6 @@ const MyCard = (props) => {
             ]
           : [
               <CounterButton
-                size={"small"}
                 product_id={props.id}
                 max={props.quantity}
                 product={product}
