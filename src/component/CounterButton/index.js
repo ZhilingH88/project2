@@ -52,7 +52,7 @@ const CounterButton = (props) => {
   };
   return (
     <div className="counterBtn-container">
-      {count === 0 ? (
+      {count === 0 || props.max === 0 ? (
         <Button
           onClick={addProductToCart}
           className="counter-button"

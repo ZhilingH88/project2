@@ -11,18 +11,18 @@ import { getUserFromLocalStorage } from "../../utils/localStorage";
 
 const { Content } = Layout;
 const MyLayout = () => {
-  const dispatch = useDispatch();
-  const token = getUserFromLocalStorage("token");
-  const { data, isLoading, error } = useGetCartQuery(undefined, {
-    skip: token == null,
-  });
-  const cartItems = data?.cartItems;
-  useEffect(() => {
-    if (cartItems && token) {
-      dispatch(setCartItem(cartItems));
-      dispatch(calculateTotals());
-    }
-  }, [cartItems, token]);
+  // const dispatch = useDispatch();
+  // const token = getUserFromLocalStorage("token");
+  // const { data, isLoading, error } = useGetCartQuery(undefined, {
+  //   skip: token == null,
+  // });
+  // const cartItems = data?.cartItems;
+  // useEffect(() => {
+  //   if (cartItems && token) {
+  //     dispatch(setCartItem(cartItems));
+  //     dispatch(calculateTotals());
+  //   }
+  // }, [cartItems, token]);
 
   return (
     <Layout>

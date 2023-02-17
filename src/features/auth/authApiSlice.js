@@ -9,6 +9,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...credentials },
       }),
+      invalidatesTags: ["Cart"],
     }),
   }),
 });

@@ -36,8 +36,8 @@ const MenuItem = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
-  const { amount, subtotal } = useSelector((store) => store.cart);
   const [userLogout, result] = useUserLogoutMutation();
+  const { amount, subtotal } = useSelector((store) => store.cart);
   const [userName, setUserName] = useState(null);
   const token = getUserFromLocalStorage("token");
   const userResult = useGetUserQuery(undefined, {
@@ -55,7 +55,16 @@ const MenuItem = () => {
       setUserName(userResult.data.user.split("@")[0]);
     }
   }, [userResult, user]);
-
+  const { data, isLoading, error } = useGetCartQuery(undefined, {
+    skip: token == null,
+  });
+  const cartItems = data?.cartItems;
+  useEffect(() => {
+    if (cartItems && token) {
+      dispatch(setCartItem(cartItems));
+      dispatch(calculateTotals());
+    }
+  }, [cartItems, token]);
   const handleOnClick = async () => {
     try {
       const resp = await userLogout().unwrap();
@@ -65,9 +74,9 @@ const MenuItem = () => {
       setUserName(null);
       toast.success(`${resp.message}`);
     } catch (error) {
+      removeUserFromLocalStorage("token");
       dispatch(clearCart());
       dispatch(logOut());
-      removeUserFromLocalStorage("token");
       setUserName(null);
     }
   };
@@ -114,14 +123,18 @@ const MenuItem = () => {
               dispatch(openModal());
             }}
           >
-            <Button type="link" className="btn cart_container">
+            <Button
+              type="link"
+              className="btn cart_container"
+              loading={isLoading}
+            >
               <Badge size="small" count={amount}>
                 <Avatar
                   shape="square"
                   icon={<FaShoppingCart className="icon" />}
                 ></Avatar>
               </Badge>
-              <p>{`$${subtotal.toFixed(2)}`}</p>
+              <p>{isLoading ? "Loading..." : `$${subtotal.toFixed(2)}`}</p>
             </Button>
           </NavLink>
         </li>

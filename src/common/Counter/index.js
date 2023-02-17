@@ -31,7 +31,6 @@ const Counter = ({
     e.preventDefault();
     let value = count - 1;
     if (value <= 0) {
-      dispatch(removeItemFromCart(product_id));
       setCount(0);
     } else {
       setCount((prev) => {
@@ -39,7 +38,11 @@ const Counter = ({
       });
     }
     if (!user) {
-      dispatch(reduceItemFromCart(product_id));
+      if (value <= 0) {
+        dispatch(removeItemFromCart(product_id));
+      } else {
+        dispatch(reduceItemFromCart(product_id));
+      }
       dispatch(calculateTotals());
       return;
     }

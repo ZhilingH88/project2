@@ -314,13 +314,15 @@ const ProductForm = () => {
                       validateStatus={formData.category.status}
                       help={formData.category.message}
                     >
-                      <Selector
-                        name={PRODUCT_FORM.CATEGORY_NAME}
-                        options={CATEGORY}
-                        defaultValue={formData.category.value}
-                        onChange={handleSelectorChange}
-                        placeholder={"Select a category"}
-                      />
+                      <div className="selector">
+                        <Selector
+                          name={PRODUCT_FORM.CATEGORY_NAME}
+                          options={CATEGORY}
+                          defaultValue={formData.category.value}
+                          onChange={handleSelectorChange}
+                          placeholder={"Select a category"}
+                        />
+                      </div>
                     </Form.Item>
                   </Col>
                   <Col

@@ -18,3 +18,8 @@
   border-radius: 0;
   color: white;
 }
+
+.selector {
+  border: 1px solid lightgray;
+  border-radius: 9px;
+}
