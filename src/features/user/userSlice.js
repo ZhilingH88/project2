@@ -3,14 +3,14 @@ import { customFetch } from "../../utils/axios";
 import { toast } from "react-toastify";
 const initialState = {
   isNavLoading: false,
-  isLoading:false,
+  isLoading: false,
   status: false,
 };
 export const userRegister = createAsyncThunk(
   "users/register",
   async (user, thunkAPI) => {
     try {
-      const resp = await customFetch.post("/use/register", user);
+      const resp = await customFetch.post("/user/register", user);
       return resp.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);

@@ -13,3 +13,8 @@
 .image-container {
   width: 50%;
 }
+.productForm-btn {
+  background-color: purple;
+  border-radius: 0;
+  color: white;
+}

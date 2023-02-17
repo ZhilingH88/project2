@@ -382,7 +382,7 @@ const ProductForm = () => {
                       prefix="http://"
                       suffix={
                         <Button
-                          type="primary"
+                          className="productForm-btn"
                           size="small"
                           onClick={handleUploadImage}
                         >
@@ -405,8 +405,7 @@ const ProductForm = () => {
                 <Form.Item>
                   <Space size={8}>
                     <Button
-                      type="primary"
-                      size="large"
+                      className="productForm-btn"
                       onClick={handleFormSubmit}
                       loading={isLoading || result.isLoading}
                       name={isEditMethod ? "edit" : "add"}
@@ -415,8 +414,7 @@ const ProductForm = () => {
                     </Button>
                     {isEditMethod && (
                       <Button
-                        type="primary"
-                        size="large"
+                        className="productForm-btn"
                         onClick={handleDeleteProduct}
                         loading={deleteResult.isLoading}
                       >
