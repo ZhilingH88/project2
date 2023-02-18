@@ -5,7 +5,7 @@ import "./index.css";
 const FooterContent = () => {
   return (
     <div className="footer-container">
-      <p>@20222 All Rights Reserved</p>
+      <p>@2022 All Rights Reserved</p>
       <div className="footer-icons">
         {[<FaYoutube />, <FaTwitter />, <FaFacebookSquare />].map(
           (item, index) => {
@@ -18,7 +18,7 @@ const FooterContent = () => {
         )}
       </div>
       <div className="footer-text">
-        {["Content Us", "Privacy Polices", "Help"].map((item, index) => {
+        {["Contact Us", "Privacy Polices", "Help"].map((item, index) => {
           return <a key={`ftext-${index}`}>{item}</a>;
         })}
       </div>

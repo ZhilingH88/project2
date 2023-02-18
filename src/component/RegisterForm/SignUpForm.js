@@ -119,7 +119,7 @@ const SignUpForm = ({ background }) => {
           help={password.message}
           required={true}
           hasFeedback={true}
-          input_type="text"
+          input_type={visible ? "text" : "password"}
           value={password.value}
           onChange={handleOnChange}
           suffix={

@@ -4,10 +4,9 @@ import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
 } from "../../utils/localStorage";
-import env from "react-dotenv";
 import { toast } from "react-toastify";
 const baseQuery = fetchBaseQuery({
-  baseUrl: env.BASE_URL,
+  baseUrl: "http://localhost:8000/",
   credentials: "include",
   prepareHeaders: async (headers, { getState }) => {
     const token = getUserFromLocalStorage("token");
