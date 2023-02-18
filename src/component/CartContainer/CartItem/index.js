@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Avatar, List } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useAddToCartMutation,
-  useRemoveFromCartMutation,
-} from "../../../features/cart/cartApiSlice";
+import { useRemoveFromCartMutation } from "../../../features/cart/cartApiSlice";
 import { toast } from "react-toastify";
 import "./index.css";
 import CounterButton from "../../CounterButton";

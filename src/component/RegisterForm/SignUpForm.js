@@ -10,7 +10,7 @@ import {
   isPasswordValid,
 } from "../../utils/RegisterHelper";
 import { Button, Form } from "antd";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./index.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +33,6 @@ const SignUpForm = ({ background }) => {
   const { isLoading, status } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   if (status) {
     navigate(background.pathname);

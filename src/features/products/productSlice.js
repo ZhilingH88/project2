@@ -32,10 +32,8 @@ const productSlice = createSlice({
       })
       .addCase(showProducts.rejected, (state, { payload }) => {
         state.isLoading = false;
-        console.log(payload);
       });
   },
 });
 
-export const {} = productSlice.actions;
 export default productSlice.reducer;

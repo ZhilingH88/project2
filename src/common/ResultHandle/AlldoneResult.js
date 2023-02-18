@@ -1,6 +1,5 @@
 import { Button, Result } from "antd";
 import React from "react";
-import { SmileOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 const AlldoneResult = (props) => {
   const navigate = useNavigate();

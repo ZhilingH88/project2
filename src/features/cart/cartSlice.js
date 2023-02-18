@@ -22,7 +22,6 @@ const cartSlice = createSlice({
       state.subtotal = 0;
     },
     addItemToCart: (state, { payload }) => {
-      console.log(payload);
       const item = state.cartItems.find(
         (item) => item.product_id === payload.product_id
       );
@@ -51,7 +50,7 @@ const cartSlice = createSlice({
       let subtotal = 0;
       let amount = 0;
       state.cartItems.forEach((item) => {
-        if (item.stock != 0) {
+        if (item.stock !== 0) {
           amount += item.quantity;
           subtotal += item.quantity * item.price;
         }

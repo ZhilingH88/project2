@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
-import { logOut, setCredentials } from "../../features/auth/authSlice";
+import { logOut } from "../../features/auth/authSlice";
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
 } from "../../utils/localStorage";
+import env from "react-dotenv";
+import { toast } from "react-toastify";
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8000/",
+  baseUrl: env.BASE_URL,
   credentials: "include",
   prepareHeaders: async (headers, { getState }) => {
     const token = getUserFromLocalStorage("token");
@@ -21,9 +21,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   try {
     let result = await baseQuery(args, api, extraOptions);
-    console.log("base", result);
     if (result?.error?.status === 403) {
-      console.log("send refresh token");
       const refreshResult = await baseQuery("/user/token", api, extraOptions);
       if (refreshResult?.data) {
         const token = refreshResult.data.accessToken;
@@ -35,7 +33,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     }
     return result;
   } catch (error) {
-    console.log(error);
+    toast.error(error.data.message);
   }
 };
 

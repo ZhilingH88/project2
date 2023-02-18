@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { InputNumber, Button, Space, Input, Tooltip } from "antd";
+import React from "react";
+import { Button, Tooltip } from "antd";
 import { useReduceFromCartMutation } from "../../features/cart/cartApiSlice";
 import "./index.css";
 import { toast } from "react-toastify";
@@ -51,7 +51,6 @@ const Counter = ({
       const resp = await reduceFromCart({ product_id: product_id }).unwrap();
       toast.success(`${resp.message}`);
     } catch (error) {
-      console.log(error);
       if (!error.status) {
         toast.error("No Server Response");
       } else if (error.status) {
@@ -88,15 +87,3 @@ const Counter = ({
 
 export default Counter;
 
-{
-  /* <InputNumber
-controls={false}
-defaultValue={count}
-value={count}
-size={size}
-style={{ width: "100px" }}
-max={max}
-min={0}
-disabled={true}
-></InputNumber> */
-}

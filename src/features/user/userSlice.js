@@ -63,7 +63,6 @@ const userSlice = createSlice({
       })
       .addCase(userLogout.rejected, (state, { payload }) => {
         state.isNavLoading = false;
-        console.log(payload);
       });
   },
 });

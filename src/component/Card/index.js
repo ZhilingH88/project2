@@ -1,5 +1,5 @@
-import { Card, Image, Col, Row, InputNumber, Button } from "antd";
-import React, { useCallback, useEffect, useState } from "react";
+import { Card, Image, Button } from "antd";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./index.css";

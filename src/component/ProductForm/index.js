@@ -97,7 +97,6 @@ const ProductForm = () => {
       setIsEditLoading(false);
     } catch (error) {
       setIsEditLoading(false);
-      console.log("error", error);
     }
   };
   useEffect(() => {

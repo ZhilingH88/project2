@@ -10,7 +10,7 @@ import { addItemToCart, calculateTotals } from "../../features/cart/cartSlice";
 
 import "./index.css";
 const CounterButton = (props) => {
-  const [count, setCount] = useState(null);
+  const [count, setCount] = useState(0);
   const { cartItems } = useSelector((store) => store.cart);
   const [addToCart, result] = useAddToCartMutation();
   const user = useSelector(selectCurrentUser);
@@ -18,7 +18,7 @@ const CounterButton = (props) => {
   useEffect(() => {
     const quantity = findNumberProductInCart(cartItems, props.product_id);
     setCount(quantity);
-  }, [cartItems]);
+  }, [cartItems, props.product_id]);
   const addProductToCart = async () => {
     let addNum = 1;
     let value = count + 1;

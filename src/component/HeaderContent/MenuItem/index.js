@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Badge, Button, Dropdown, Menu } from "antd";
+import { Avatar, Badge, Button } from "antd";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import "./index.css";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useGetUserQuery,
@@ -13,11 +13,9 @@ import LogoutDropDown from "../../LogoutDropdown";
 import { useGetCartQuery } from "../../../features/cart/cartApiSlice";
 import {
   logOut,
-  selectCurrentToken,
   selectCurrentUser,
   setCredentials,
 } from "../../../features/auth/authSlice";
-import { userLogout } from "../../../features/user/userSlice";
 import {
   clearCart,
   setCartItem,
@@ -29,12 +27,9 @@ import {
   removeUserFromLocalStorage,
 } from "../../../utils/localStorage";
 
-const { Item } = Menu;
-
 const MenuItem = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [userLogout, result] = useUserLogoutMutation();
   const { amount, subtotal } = useSelector((store) => store.cart);
@@ -86,16 +81,16 @@ const MenuItem = () => {
       <ul className="menu">
         <li>
           {token ? (
-            <LogoutDropDown handleOnClick={handleOnClick}>
+            <NavLink to="/" onClick={handleOnClick}>
               <Button
                 type="link"
                 className="btn"
                 loading={userResult.isLoading || result.isLoading}
               >
                 <FaUser className="icon" />
-                <p>{userResult.isLoading ? "Loading..." : userName}</p>
+                <p>{userResult.isLoading ? "Loading..." : "Sign out"}</p>
               </Button>
-            </LogoutDropDown>
+            </NavLink>
           ) : (
             <NavLink
               to="/login"

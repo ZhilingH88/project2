@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Selector } from "../../common";
 import { Button, Row, Col, Spin, Pagination } from "antd";
 import { PRODUCT_FILTER } from "../../content/Product_Filter";

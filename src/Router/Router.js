@@ -15,7 +15,6 @@ import RequireAdmin from "../page/RequireAdmin";
 const Router = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
-  console.log("rount", background);
   return (
     <>
       <Routes location={background || location}>

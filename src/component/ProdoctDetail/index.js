@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Row, Image, Typography, Button, Spin } from "antd";
+import { Image, Typography, Button, Spin } from "antd";
 import { Link } from "react-router-dom";
 import "./index.css";
-import { toast } from "react-toastify";
 import { customFetch } from "../../utils/axios";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { selectCurrentUserIsAdmin } from "../../features/auth/authSlice";
 import CounterButton from "../CounterButton";
 const { Title } = Typography;
@@ -26,7 +25,6 @@ const ProductDetail = () => {
       setProduct(product);
       setLoading(false);
     } catch (error) {
-      console.log("error", error);
       setLoading(false);
       navigate("/*");
     }

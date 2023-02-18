@@ -1,12 +1,11 @@
 import axios from "axios";
-import { refreshToken } from "../features/user/userSlice";
-// import { store } from "../store";
+import env from "react-dotenv";
 axios.defaults.withCredentials = true;
 const customFetch = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: env.BASE_URL,
 });
 const privateFetch = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: env.BASE_URL,
 });
 
 export { customFetch, privateFetch };

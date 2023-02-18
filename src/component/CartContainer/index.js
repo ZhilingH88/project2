@@ -56,7 +56,6 @@ const CartContainer = ({ background }) => {
                 e.preventDefault();
                 const data = getDiscountValue(code);
                 if (data.length > 0) {
-                  console.log(data[0].value);
                   dispatch(setDiscount(data[0].value));
                   dispatch(calculateTotals());
                 } else {

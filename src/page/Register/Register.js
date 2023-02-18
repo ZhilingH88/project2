@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LoginForm, SignUpForm, ForgetPassword } from "../../component";
 import { MyModal } from "../../common";
 import { MODAL_TYPE } from "../../content/Modal_Type";

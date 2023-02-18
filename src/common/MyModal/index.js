@@ -1,15 +1,13 @@
-import { Button, Modal, Typography } from "antd";
+import { Modal, Typography } from "antd";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../features/modal/modalSlice";
+import { useSelector } from "react-redux";
 import { GrClose } from "react-icons/gr";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./index.css";
 
 const { Title, Text } = Typography;
 
 const MyModal = (props) => {
-  const dispatch = useDispatch();
   const { isOpen } = useSelector((store) => store.modal);
   return (
     <Modal

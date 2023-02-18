@@ -1,5 +1,4 @@
 import { apiSlice } from "../../app/api/apiSlice";
-import { LOGIN_FORM_TEXT } from "../../content/RegisterFormContent";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

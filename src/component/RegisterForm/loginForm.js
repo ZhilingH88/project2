@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, {  useState } from "react";
+import {  useDispatch } from "react-redux";
 import { FormTextInput } from "../../common";
 import { LOGIN_FORM_TEXT } from "../../content/RegisterFormContent";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Button, Form } from "antd";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./index.css";
 
 import { isEmpty, isEmailValid } from "../../utils/RegisterHelper";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
-import { setCredentials, setUserLogin } from "../../features/auth/authSlice";
+import { setCredentials } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
-import { apiSlice } from "../../app/api/apiSlice";
 import {
   addUserToLocalStorage,
-  getUserFromLocalStorage,
 } from "../../utils/localStorage";
-import { cartApiSlice } from "../../features/cart/cartApiSlice";
 
 const LoginForm = ({ background }) => {
   const initEmail = {
@@ -96,7 +93,6 @@ const LoginForm = ({ background }) => {
         setPassword(initPassword);
         navigate(background.pathname);
       } catch (error) {
-        console.log(error);
         if (!error.status) {
           toast.error("No Server Response");
         } else if (error.status === 400) {
